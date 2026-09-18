@@ -17,7 +17,7 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('Public'));
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 app.get('/', (req, res)=>{
-    res.sendFile(__dirname + '/public/login.html');
+    res.sendFile(__dirname + '/Public/login.html');
 });
 
 io.on('connection', async (socket)=>{
