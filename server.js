@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 app.get('/', (req, res)=>{
-    res.send("chat app backend is running");
+    res.send(__dirname + '/public/login.html');
 });
 
 io.on('connection', async (socket)=>{
