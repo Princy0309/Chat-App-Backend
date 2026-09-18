@@ -20,7 +20,7 @@ A real-time chat application built with Node.js, Express, socket.io and MongoDB 
 ## API endpoints
  
  local : http://localhost:5000
- Production : 
+ 
 
 1. Register user 
   POST /auth/register
@@ -87,5 +87,10 @@ A real-time chat application built with Node.js, Express, socket.io and MongoDB 
 
 # Authentication
  The app uses JWT(JSON Web Tokens) for authentication
+
+
+ # Deployment
+ Deployed on Render- https://chat-app-backend-i2n2.onrender.com
+ 
 
 
