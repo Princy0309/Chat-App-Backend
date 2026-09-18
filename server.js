@@ -17,6 +17,10 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
+
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log("MongoDB connected"))
@@ -29,7 +33,7 @@ app.get('/', (req, res)=>{
 
 io.on('connection', async (socket)=>{
     console.log('A user connected', socket.id);
-    
+
     const messages = await Message.find()
     .populate('sender', 'username')
     .sort({createdAt: 1});
