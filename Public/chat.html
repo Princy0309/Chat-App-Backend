@@ -32,7 +32,7 @@
       font-size: 18px;
     }
     .header-title { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
-    .header-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+    .header-sub { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 1px; display: flex; align-items: center; }
     .online-dot {
       width: 8px; height: 8px;
       background: #43e7ad;
@@ -183,7 +183,8 @@
       <div class="logo-icon">💬</div>
       <div>
         <div class="header-title">Global Chat</div>
-        <div class="header-sub"><span class="online-dot"></span>Live</div>
+        <!-- CHANGED HERE: added id="onlineStatus" -->
+        <div class="header-sub" id="onlineStatus"><span class="online-dot"></span>1 Online</div>
       </div>
     </div>
     <div class="header-right">
@@ -228,6 +229,14 @@
 
     // Connect to socket
     const socket = io(BACKEND_URL);
+
+    // CHANGED HERE: Listen for live online user updates from server
+    socket.on('updateUserCount', (count) => {
+      const onlineStatus = document.getElementById('onlineStatus');
+      if (onlineStatus) {
+        onlineStatus.innerHTML = `<span class="online-dot"></span>${count} Online`;
+      }
+    });
 
     const messagesContainer = document.getElementById('messagesContainer');
     const emptyState = document.getElementById('emptyState');
@@ -295,4 +304,3 @@
   </script>
 </body>
 </html>
-

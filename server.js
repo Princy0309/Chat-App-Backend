@@ -31,7 +31,14 @@ app.get('/', (req, res)=>{
     res.sendFile(__dirname + '/Public/login.html');
 });
 
+let onlineUsers = 0;
+
+
 io.on('connection', async (socket)=>{
+
+    onlineUsers++;
+    io.emit('updateUsercount', onlineUsers);
+    console.log(`User connected (${socket.id}). Total online: ${onlineUsers}`);
     console.log('A user connected', socket.id);
 
     const messages = await Message.find()
@@ -50,7 +57,9 @@ io.on('connection', async (socket)=>{
     })
 
     socket.on('disconnect', ()=>{
-        console.log('User disconnected', socket.id);
+        onlineUsers = Math.max(0, onlineUsers - 1);
+        io.emit('updateUserCount', onlineUsers);
+        console.log(`User disconnected (${socket.id}). Total online: ${onlineUsers}`);
     });
 });
 
